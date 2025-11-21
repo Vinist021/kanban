@@ -1,0 +1,22 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Gradiente de verde para amarelo no fundo da aplicação */
+body {
+  background: linear-gradient(135deg, #2ecc71 0%, #f1c40f 100%);
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  background-attachment: fixed;
+  color: #111;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial;
+}
+
+/* Opcional: ajustar contraste de elementos centrais */
+.app-container {
+  min-height: 100%;
+}
