@@ -20,7 +20,7 @@ const BoardColumn = ({ title = "Column", counter = 0, button = false }) => {
         </div>
       )}
 
-      <div className="flex-1">{/* Column content goes here */}</div>
+      <div className="flex-1 bg-gray-200 mt-3 rounded-xl">{/* Column content goes here */}</div>
     </div>
   );
 };
