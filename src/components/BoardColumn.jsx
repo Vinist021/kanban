@@ -1,8 +1,18 @@
 import { useState } from "react";
-import Modal from "./Modal";
+import Modal from "./modal/Modal";
+import ModalInput from "./modal/ModalInput";
+import SelectBox from "./modal/SelectBox";
+import DateInput from "./modal/DateInput";
 
 const BoardColumn = ({ title = "Column", counter = 0, button = false }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const options = [ 
+    {value: "high", label: "🔴 Alta"},
+    {value: "medium", label: "🟡 Média"},
+    {value: "low", label: "🟢 Baixa"},
+   ];
+
   return (
     <div className="h-full w-[33%] bg-white rounded-xl shadow p-4 flex flex-col">
       <div className="flex items-center justify-between mb-3">
@@ -26,19 +36,17 @@ const BoardColumn = ({ title = "Column", counter = 0, button = false }) => {
           <Modal
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
-            title={`Adicionar em ${title}`}
+            title="Adicionar novo item"
           >
             <div className="space-y-3">
-              <input
-                className="w-full border border-gray-200 rounded-md px-3 py-2"
-                placeholder="Título"
-                aria-label="Título"
-              />
-              <textarea
-                className="w-full border border-gray-200 rounded-md px-3 py-2 h-24"
-                placeholder="Descrição"
-                aria-label="Descrição"
-              />
+
+              <ModalInput label="Título" placeholder="Digite o título da tarefa" required />
+              <ModalInput label="Descrição" placeholder="Digite o título da tarefa" type="textarea" required/>
+              <SelectBox label="Prioridade" placeholder="Selecione uma prioridade" options={options} required/>
+              <DateInput label="Data de Vencimento" required/>
+              <ModalInput label="Responsáveis" placeholder="Digite o título da tarefa" required />
+
+
               <div className="flex gap-2 justify-end">
                 <button
                   type="button"

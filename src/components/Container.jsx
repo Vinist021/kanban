@@ -1,5 +1,5 @@
 import BoardColumn from "./BoardColumn";
-import SearchInput from "./SearchInput";
+import SearchInput from "./search/SearchInput";
 
 const Container = () => {
   return (
