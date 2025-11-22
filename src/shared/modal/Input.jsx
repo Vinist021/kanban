@@ -15,7 +15,7 @@ import { useState } from "react";
  * - required: boolean
  * - className / labelClassName / inputClassName: string (tailwind additional classes)
  */
-export default function ModalInput({
+export default function Input({
   id,
   name,
   label,
