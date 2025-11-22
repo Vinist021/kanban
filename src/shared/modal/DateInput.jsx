@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import {useRef, useState } from "react";
 
 /**
  * DateInput (com ícone e picker nativo)
@@ -31,9 +31,7 @@ export default function DateInput({
 
   const hiddenDateRef = useRef(null);
 
-  // helpers
   const isoToDisplay = (iso) => {
-    // iso: yyyy-mm-dd -> dd/mm/yyyy
     if (!iso) return "";
     const parts = iso.split("-");
     if (parts.length !== 3) return "";
@@ -44,7 +42,6 @@ export default function DateInput({
   };
 
   const displayToIso = (display) => {
-    // display: dd/mm/yyyy -> yyyy-mm-dd
     const digits = (display || "").replace(/\D/g, "");
     if (digits.length < 8) return "";
     const d = digits.slice(0, 2);
@@ -75,15 +72,7 @@ export default function DateInput({
     );
   };
 
-  // sync external value -> internal formatted (if parent provides yyyy/mm already formatted)
-  useEffect(() => {
-    if (value !== undefined) {
-      // assume parent provides dd/mm/yyyy; leave as-is
-    }
-  }, [value]);
-
   const handleVisibleChange = (e) => {
-    // typing in visible input - allow only digits and slash insertion
     const raw = e.target.value;
     const digits = raw.replace(/\D/g, "").slice(0, 8);
     const formatted = formatDigitsToDisplay(digits);
@@ -92,7 +81,6 @@ export default function DateInput({
   };
 
   const handleNativeChange = (e) => {
-    // native input returns yyyy-mm-dd
     const iso = e.target.value;
     const disp = isoToDisplay(iso);
     if (onChange) onChange(disp);
@@ -102,12 +90,10 @@ export default function DateInput({
   const openNativePicker = () => {
     const el = hiddenDateRef.current;
     if (!el) return;
-    // Preferred: showPicker (Chromium)
     if (typeof el.showPicker === "function") {
       el.showPicker();
     } else {
       el.focus();
-      // some browsers will open on focus; otherwise user can pick via keyboard
     }
   };
 
@@ -122,7 +108,7 @@ export default function DateInput({
           className={`block text-sm font-medium text-gray-700 mb-1 ${labelClassName}`}
         >
           {label}
-          {required ? " *" : ""}
+          {required ? <span className="text-red-600 ml-1">*</span> : ""}
         </label>
       ) : null}
 
@@ -139,19 +125,16 @@ export default function DateInput({
           aria-label={label}
           required={required}
           onClick={() => {
-            /* opcional: abrir picker ao clicar no campo também */
             openNativePicker();
           }}
         />
 
-        {/* ícone/button do calendário */}
         <button
           type="button"
           onClick={openNativePicker}
           className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
           aria-label="Abrir seletor de data"
         >
-          {/* simple calendar SVG */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -168,7 +151,6 @@ export default function DateInput({
           </svg>
         </button>
 
-        {/* hidden native date input (keeps real picker) */}
         <input
           ref={hiddenDateRef}
           type="date"
@@ -179,7 +161,6 @@ export default function DateInput({
         />
       </div>
 
-      {/* validation hint */}
       {currentValue &&
       currentValue.length === 10 &&
       !isValidDate(currentValue) ? (

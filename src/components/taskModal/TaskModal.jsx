@@ -26,7 +26,7 @@ const TaskModal = ({ isOpen: isOpenProp, onClose: onCloseProp }) => {
           />
           <Input
             label="Descrição"
-            placeholder="Digite o título da tarefa"
+            placeholder="Digite o descrição da tarefa"
             type="textarea"
             required
           />
@@ -39,7 +39,7 @@ const TaskModal = ({ isOpen: isOpenProp, onClose: onCloseProp }) => {
           <DateInput label="Data de Vencimento" required />
           <Input
             label="Responsáveis"
-            placeholder="Digite o título da tarefa"
+            placeholder="Digite os nomes dos responsáveis separados por vírgula (Ex.: João, Maria)"
             required
           />
 

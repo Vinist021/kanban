@@ -27,7 +27,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
       aria-hidden="false"
     >
       <div
-        className="bg-white rounded-xl shadow-xl max-w-2xl w-11/12 max-h-[80vh] overflow-auto p-6 m-4 ring-1 ring-black/5"
+        className="bg-white rounded-xl shadow-xl max-w-2xl w-11/12 max-h-[80vh] overflow-y-auto overflow-x-hidden p-6 m-4 ring-1 ring-black/5"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
