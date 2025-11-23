@@ -96,7 +96,7 @@ const Page = () => {
         />
 
         <BoardColumn
-          title="⚙️ Em Progresso"
+          title="⚙️ Em Andamento"
           counter={
             tasks.filter((t) => (t.status || "todo") === "inprogress").length
           }

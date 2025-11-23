@@ -183,7 +183,7 @@ const TaskModal = ({
             render={({ field }) => (
               <Input
                 label="Responsáveis"
-                placeholder="Digite os nomes dos responsáveis separados por vírgula (Ex.: João, Maria)"
+                placeholder="Digite os nomes dos responsáveis"
                 required
                 value={field.value}
                 onChange={field.onChange}
