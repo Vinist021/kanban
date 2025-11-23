@@ -8,6 +8,7 @@ const BoardColumn = ({
   button = false,
   tasks = [],
   status = "todo",
+  query = "",
   onCreate,
   onView,
   onEdit,
@@ -64,23 +65,45 @@ const BoardColumn = ({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        {((tasks || []).filter((t) => (t.status || "todo") === status) || [])
-          .length === 0 ? (
-          <div className="text-sm text-gray-500"></div>
-        ) : (
-          (tasks || [])
-            .filter((t) => (t.status || "todo") === status)
-            .map((t) => (
-              <TaskCard
-                key={t.id}
-                task={t}
-                onView={onView}
-                onEdit={onEdit}
-                onDelete={onDelete}
-                onDragStart={onDragStart}
-              />
-            ))
-        )}
+        {(() => {
+          const base = (tasks || []).filter(
+            (t) => (t.status || "todo") === status
+          );
+
+          const q = (query || "").toLowerCase().trim();
+          const matchesQuery = (t) => {
+            if (!q) return true;
+            const parts = [
+              t.title,
+              t.description,
+              t.priority,
+              t.dueDate,
+              Array.isArray(t.assignees) ? t.assignees.join(" ") : t.assignees,
+              t.status,
+            ]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
+            return parts.indexOf(q) !== -1;
+          };
+
+          const filtered = q ? base.filter(matchesQuery) : base;
+
+          if (filtered.length === 0) {
+            return <div className="text-sm text-gray-500"></div>;
+          }
+
+          return filtered.map((t) => (
+            <TaskCard
+              key={t.id}
+              task={t}
+              onView={onView}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              onDragStart={onDragStart}
+            />
+          ));
+        })()}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import BoardColumn from "./boardColumn/BoardColumn";
-import SearchInput from "./search/SearchInput";
+import SearchInput from "./searchInput/SearchInput";
 import TaskModal from "./taskModal/TaskModal";
 import TaskViewModal from "./taskViewModal/TaskViewModal";
 
@@ -13,6 +13,8 @@ const Page = () => {
       return [];
     }
   });
+
+  const [query, setQuery] = useState("");
 
   const [viewTask, setViewTask] = useState(null);
   const [isViewOpen, setIsViewOpen] = useState(false);
@@ -72,13 +74,18 @@ const Page = () => {
 
   return (
     <div className="w-[90%] h-[90vh] mx-auto flex flex-col items-center mt-10 gap-6">
-      <SearchInput></SearchInput>
+      <SearchInput
+        query={query}
+        onQueryChange={setQuery}
+        onClear={() => setQuery("")}
+      />
       <div className="w-full h-[80%] flex gap-6">
         <BoardColumn
           title="📌 A fazer"
           counter={tasks.filter((t) => (t.status || "todo") === "todo").length}
           button={true}
           tasks={tasks}
+          query={query}
           status="todo"
           onCreate={handleCreateWithStatus}
           onView={handleView}
@@ -94,6 +101,7 @@ const Page = () => {
             tasks.filter((t) => (t.status || "todo") === "inprogress").length
           }
           tasks={tasks}
+          query={query}
           status="inprogress"
           onView={handleView}
           onEdit={handleEditClick}
@@ -106,6 +114,7 @@ const Page = () => {
           title="✅ Concluído"
           counter={tasks.filter((t) => (t.status || "todo") === "done").length}
           tasks={tasks}
+          query={query}
           status="done"
           onView={handleView}
           onEdit={handleEditClick}
