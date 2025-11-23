@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BoardColumn from "./boardColumn/BoardColumn";
 import SearchInput from "./search/SearchInput";
 import TaskModal from "./taskModal/TaskModal";
 import TaskViewModal from "./taskViewModal/TaskViewModal";
 
 const Page = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    try {
+      const raw = localStorage.getItem("kanban.tasks");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
 
   const [viewTask, setViewTask] = useState(null);
   const [isViewOpen, setIsViewOpen] = useState(false);
@@ -45,7 +52,7 @@ const Page = () => {
       e.dataTransfer.setData("text/plain", String(task.id));
       e.dataTransfer.effectAllowed = "move";
     } catch {
-      console.log("Erro ao arrastar")
+      console.log("Erro ao arrastar");
     }
   };
 
@@ -54,6 +61,14 @@ const Page = () => {
       s.map((t) => (t.id === taskId ? { ...t, status: toStatus } : t))
     );
   };
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("kanban.tasks", JSON.stringify(tasks));
+    } catch (e) {
+      console.error("Failed to save tasks to localStorage", e);
+    }
+  }, [tasks]);
 
   return (
     <div className="w-[90%] h-[90vh] mx-auto flex flex-col items-center mt-10 gap-6">
