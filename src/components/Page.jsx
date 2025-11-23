@@ -79,7 +79,7 @@ const Page = () => {
         onQueryChange={setQuery}
         onClear={() => setQuery("")}
       />
-      <div className="w-full h-[80%] flex gap-6">
+      <div className="w-full h-auto md:h-[80%] flex flex-col md:flex-row gap-6">
         <BoardColumn
           title="📌 A fazer"
           counter={tasks.filter((t) => (t.status || "todo") === "todo").length}

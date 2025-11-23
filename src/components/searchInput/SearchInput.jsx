@@ -9,7 +9,8 @@ const SearchInput = ({ query = "", onQueryChange, onClear }) => {
         Gerenciador de Tarefas Inteligente
       </h3>
 
-      <div className="w-full flex justify-center w-[90%]">
+
+      <div className="w-[90%] md:w-full flex justify-center ms-5 md:ms-0">
         <input
           type="text"
           placeholder="Pesquisar..."
