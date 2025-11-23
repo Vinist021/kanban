@@ -4,6 +4,10 @@
 - **Descrição:** Projeto de um quadro Kanban construído com `React` e `Vite`, contendo colunas, cartões de tarefa e modais para criação/edição/visualização de tarefas.
 - **Objetivo:** Fornecer uma base simples e extensível para organizar tarefas em colunas (por exemplo: To Do, Doing, Done) com componentes reutilizáveis.
 
+**Visualização do projeto**
+<img width="1905" height="945" alt="image" src="https://github.com/user-attachments/assets/7f9c1871-35d3-460e-a5ae-ca94a30f48dc" />
+
+
 **Funcionalidades Principais**
 - **Quadro por colunas:** Cada coluna representa um estado/tipo de lista e organiza os cartões de tarefa.
 - **Cartões de tarefa:** Componentes que exibem informações básicas da tarefa (título, data, etiquetas).
@@ -85,5 +89,6 @@
 - **Formato:** Use `Prettier`/`ESLint` (configurações já presentes) para manter estilo consistente.
 - **Testes:** Adicione testes unitários com `vitest` ou `jest` se desejar garantir estabilidade de componentes.
 
-**Contato**
-- Para dúvidas ou contribuições, abra uma issue no repositório.
+**Link para acessar o projeto**
+
+🚀 Acesse o projeto: [Projeto_Quadro_Kanban](https://kanbanpweb.vercel.app/)
