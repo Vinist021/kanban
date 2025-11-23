@@ -1,6 +1,10 @@
-const TaskCard = ({ task, onView, onEdit, onDelete }) => {
+const TaskCard = ({ task, onView, onEdit, onDelete, onDragStart }) => {
   return (
-    <div className="bg-white rounded-md p-3 mb-3 shadow flex flex-col">
+    <div
+      draggable={true}
+      onDragStart={(e) => onDragStart && onDragStart(e, task)}
+      className="bg-white rounded-md p-3 mb-3 shadow flex flex-col"
+    >
       <div className="flex items-start justify-between gap-2">
         <div>
           <h3 className="text-sm font-semibold">{task.title}</h3>

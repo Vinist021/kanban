@@ -1,18 +1,33 @@
 import { useState } from "react";
-import TaskModal from "../taskModal/TaskModal";
 import TaskCard from "../taskCard/TaskCard";
+import TaskModal from "../taskModal/TaskModal";
 
 const BoardColumn = ({
   title = "Column",
   counter = 0,
   button = false,
   tasks = [],
+  status = "todo",
   onCreate,
   onView,
   onEdit,
   onDelete,
+  onMove,
+  onDragStart,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/plain");
+    if (!id) return;
+    const taskId = isNaN(Number(id)) ? id : Number(id);
+    if (onMove) onMove(taskId, status);
+  };
 
   return (
     <div className="h-full w-[33%] bg-white rounded-xl shadow p-4 flex flex-col">
@@ -38,23 +53,33 @@ const BoardColumn = ({
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
             onSave={(task) => {
-              if (onCreate) onCreate(task);
+              if (onCreate) onCreate(task, status);
             }}
           />
         </div>
       )}
 
-      <div className="flex-1 bg-gray-200 mt-3 rounded-xl p-3 overflow-y-auto">
-        {tasks.length !== 0 && (
-          tasks.map((t) => (
-            <TaskCard
-              key={t.id}
-              task={t}
-              onView={onView}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
-          ))
+      <div
+        className="flex-1 bg-gray-200 mt-3 rounded-xl p-3 overflow-y-auto"
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        {((tasks || []).filter((t) => (t.status || "todo") === status) || [])
+          .length === 0 ? (
+          <div className="text-sm text-gray-500">Nenhuma tarefa</div>
+        ) : (
+          (tasks || [])
+            .filter((t) => (t.status || "todo") === status)
+            .map((t) => (
+              <TaskCard
+                key={t.id}
+                task={t}
+                onView={onView}
+                onEdit={onEdit}
+                onDelete={onDelete}
+                onDragStart={onDragStart}
+              />
+            ))
         )}
       </div>
     </div>
