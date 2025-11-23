@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DateInput from "../../shared/modal/DateInput";
 import Input from "../../shared/modal/Input";
 import Modal from "../../shared/modal/Modal";
 import SelectBox from "../../shared/modal/SelectBox";
 
-const TaskModal = ({ isOpen: isOpenProp, onClose: onCloseProp, onSave }) => {
+const TaskModal = ({
+  isOpen: isOpenProp,
+  onClose: onCloseProp,
+  onSave,
+  initialData = null,
+}) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = isOpenProp !== undefined;
   const isOpen = isControlled ? isOpenProp : internalOpen;
@@ -32,6 +37,25 @@ const TaskModal = ({ isOpen: isOpenProp, onClose: onCloseProp, onSave }) => {
     },
   });
 
+  useEffect(() => {
+    if (!isOpen) return;
+    if (initialData) {
+      const assignees = Array.isArray(initialData.assignees)
+        ? initialData.assignees.join(", ")
+        : initialData.assignees || "";
+
+      reset({
+        title: initialData.title || "",
+        description: initialData.description || "",
+        priority: initialData.priority || "",
+        dueDate: initialData.dueDate || "",
+        assignees,
+      });
+    } else {
+      reset();
+    }
+  }, [isOpen, initialData, reset]);
+
   const validateDisplayDate = (display) => {
     if (!display) return false;
     const digits = (display || "").replace(/\D/g, "");
@@ -48,7 +72,6 @@ const TaskModal = ({ isOpen: isOpenProp, onClose: onCloseProp, onSave }) => {
   };
 
   const onSubmit = (data) => {
-    // transform assignees into array
     const payload = {
       ...data,
       assignees: data.assignees

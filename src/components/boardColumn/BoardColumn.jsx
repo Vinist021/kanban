@@ -1,7 +1,17 @@
 import { useState } from "react";
 import TaskModal from "../taskModal/TaskModal";
+import TaskCard from "../taskCard/TaskCard";
 
-const BoardColumn = ({ title = "Column", counter = 0, button = false }) => {
+const BoardColumn = ({
+  title = "Column",
+  counter = 0,
+  button = false,
+  tasks = [],
+  onCreate,
+  onView,
+  onEdit,
+  onDelete,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -24,12 +34,28 @@ const BoardColumn = ({ title = "Column", counter = 0, button = false }) => {
             + Adicionar
           </button>
 
-          <TaskModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+          <TaskModal
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            onSave={(task) => {
+              if (onCreate) onCreate(task);
+            }}
+          />
         </div>
       )}
 
-      <div className="flex-1 bg-gray-200 mt-3 rounded-xl">
-        {/* Column content goes here */}
+      <div className="flex-1 bg-gray-200 mt-3 rounded-xl p-3 overflow-y-auto">
+        {tasks.length !== 0 && (
+          tasks.map((t) => (
+            <TaskCard
+              key={t.id}
+              task={t}
+              onView={onView}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ))
+        )}
       </div>
     </div>
   );
