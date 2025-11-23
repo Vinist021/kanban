@@ -17,9 +17,9 @@ const TaskModal = ({
   const onClose = onCloseProp ?? (() => setInternalOpen(false));
 
   const options = [
-    { value: "high", label: "🔴 Alta" },
-    { value: "medium", label: "🟡 Média" },
-    { value: "low", label: "🟢 Baixa" },
+    { value: "alta", label: "🔴 Alta" },
+    { value: "média", label: "🟡 Média" },
+    { value: "baixa", label: "🟢 Baixa" },
   ];
 
   const {

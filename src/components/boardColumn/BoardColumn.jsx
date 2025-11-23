@@ -66,7 +66,7 @@ const BoardColumn = ({
       >
         {((tasks || []).filter((t) => (t.status || "todo") === status) || [])
           .length === 0 ? (
-          <div className="text-sm text-gray-500">Nenhuma tarefa</div>
+          <div className="text-sm text-gray-500"></div>
         ) : (
           (tasks || [])
             .filter((t) => (t.status || "todo") === status)

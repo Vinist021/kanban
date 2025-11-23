@@ -41,12 +41,11 @@ const Page = () => {
   };
 
   const handleDragStart = (e, task) => {
-    // set task id on transfer
     try {
       e.dataTransfer.setData("text/plain", String(task.id));
       e.dataTransfer.effectAllowed = "move";
     } catch {
-      // ignore
+      console.log("Erro ao arrastar")
     }
   };
 

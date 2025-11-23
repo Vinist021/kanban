@@ -1,6 +1,6 @@
 const SearchInput = () => {
   return (
-    <div className="w-full bg-white h-[22%] rounded-2xl shadow">
+    <div className="w-full bg-white h-[22%] min-h-[150px] rounded-2xl shadow">
       <h1 className="ps-5 pb-3 mt-3 text-blue-500 text-2xl font-bold">
         📋 Kanban Board
       </h1>
